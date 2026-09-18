@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlowSync - Assignment Workflow</title>
+    <title>FlowSync</title>
     <style>
         :root {
             --bg-color: #f8f9fa;
             --container-bg: #ffffff;
+            --textarea-bg: #ffffff;
             --text-color: #333333;
             --active-bg: #d1e7dd;
             --active-text: #0f5132;
@@ -17,19 +18,24 @@
             --btn-secondary: #6c757d;
             --btn-secondary-hover: #5c636a;
             --border-color: #ced4da;
+            --settings-btn-bg: #1a73e8;
+            --settings-btn-hover: #1557b0;
         }
 
         /* Dark Mode Variables */
         body.dark-mode {
-            --bg-color: #121212;
-            --container-bg: #1e1e1e;
-            --text-color: #e0e0e0;
+            --bg-color: #0d0d0d;
+            --container-bg: #161616;
+            --textarea-bg: #222222;
+            --text-color: #ffffff;
             --active-bg: #2d3730;
             --active-text: #4caf50;
             --active-border: #4caf50;
             --btn-secondary: #333333;
             --btn-secondary-hover: #444444;
-            --border-color: #444444;
+            --border-color: #333333;
+            --settings-btn-bg: #2b7cff; 
+            --settings-btn-hover: #1e5cbf;
         }
 
         body {
@@ -72,7 +78,6 @@
             overflow-y: auto;
         }
 
-        /* Top Header layout (Persistent across views) */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -93,7 +98,6 @@
             gap: 0.5rem;
         }
 
-        /* Icon Button Styles */
         .icon-btn {
             background-color: var(--btn-secondary);
             border: none;
@@ -119,7 +123,6 @@
             display: block;
         }
 
-        /* Views */
         #input-view {
             display: flex;
             flex-direction: column;
@@ -136,7 +139,8 @@
         #settings-view {
             display: none;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 2rem;
+            padding: 1rem 0;
         }
 
         textarea {
@@ -146,7 +150,7 @@
             font-family: inherit;
             font-size: 1rem;
             border: 1px solid var(--border-color);
-            background-color: var(--container-bg);
+            background-color: var(--textarea-bg);
             color: var(--text-color);
             border-radius: 4px;
             resize: vertical;
@@ -200,7 +204,6 @@
             opacity: 1;
         }
 
-        /* Buttons */
         .btn-primary {
             background-color: var(--btn-primary);
             color: white;
@@ -218,14 +221,175 @@
             background-color: var(--btn-hover);
         }
 
+        .settings-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
         .settings-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
-            background-color: var(--bg-color);
+            padding: 0.75rem 0;
+        }
+
+        .settings-label {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .btn-settings {
+            background-color: var(--settings-btn-bg);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
             border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-settings:hover {
+            background-color: var(--settings-btn-hover);
+        }
+
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 0.5rem;
+            background-color: var(--container-bg);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
             border: 1px solid var(--border-color);
+            border-radius: 4px;
+            z-index: 1000;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .dropdown-menu.show {
+            display: flex;
+        }
+
+        .dropdown-item {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--active-bg);
+            color: var(--active-text);
+        }
+
+        body.theme-ocean {
+            --bg-color: #e0f2fe;
+            --container-bg: #ffffff;
+            --textarea-bg: #ffffff;
+            --text-color: #0c4a6e;
+            --active-bg: #bae6fd;
+            --active-text: #0369a1;
+            --active-border: #0284c7;
+            --btn-primary: #0284c7;
+            --btn-hover: #0369a1;
+            --settings-btn-bg: #0ea5e9;
+            --settings-btn-hover: #0284c7;
+            --border-color: #bae6fd;
+        }
+
+        body.theme-sunset {
+            --bg-color: #fff1f2;
+            --container-bg: #ffffff;
+            --textarea-bg: #ffffff;
+            --text-color: #4c0519;
+            --active-bg: #fecdd3;
+            --active-text: #be123c;
+            --active-border: #e11d48;
+            --btn-primary: #e11d48;
+            --btn-hover: #be123c;
+            --settings-btn-bg: #f43f5e;
+            --settings-btn-hover: #e11d48;
+            --border-color: #fecdd3;
+        }
+
+        body.theme-forest {
+            --bg-color: #ecfdf5;
+            --container-bg: #ffffff;
+            --textarea-bg: #ffffff;
+            --text-color: #064e3b;
+            --active-bg: #a7f3d0;
+            --active-text: #047857;
+            --active-border: #059669;
+            --btn-primary: #059669;
+            --btn-hover: #047857;
+            --settings-btn-bg: #10b981;
+            --settings-btn-hover: #059669;
+            --border-color: #a7f3d0;
+        }
+
+        body.theme-ocean.dark-mode {
+            --bg-color: #082f49;
+            --container-bg: #0c4a6e;
+            --textarea-bg: #10587d;
+            --text-color: #f0f9ff;
+            --active-bg: #0369a1;
+            --active-text: #bae6fd;
+            --active-border: #38bdf8;
+            --btn-primary: #0284c7;
+            --btn-hover: #0ea5e9;
+            --settings-btn-bg: #0ea5e9;
+            --settings-btn-hover: #0284c7;
+            --border-color: #0369a1;
+            --btn-secondary: #1e3a8a;
+            --btn-secondary-hover: #1e40af;
+        }
+
+        body.theme-sunset.dark-mode {
+            --bg-color: #4c0519;
+            --container-bg: #881337;
+            --textarea-bg: #9f1239;
+            --text-color: #fff1f2;
+            --active-bg: #be123c;
+            --active-text: #fecdd3;
+            --active-border: #fb7185;
+            --btn-primary: #e11d48;
+            --btn-hover: #f43f5e;
+            --settings-btn-bg: #f43f5e;
+            --settings-btn-hover: #e11d48;
+            --border-color: #be123c;
+            --btn-secondary: #831843;
+            --btn-secondary-hover: #9f1239;
+        }
+
+        body.theme-forest.dark-mode {
+            --bg-color: #064e3b;
+            --container-bg: #065f46;
+            --textarea-bg: #047857;
+            --text-color: #ecfdf5;
+            --active-bg: #047857;
+            --active-text: #a7f3d0;
+            --active-border: #34d399;
+            --btn-primary: #059669;
+            --btn-hover: #10b981;
+            --settings-btn-bg: #10b981;
+            --settings-btn-hover: #059669;
+            --border-color: #047857;
+            --btn-secondary: #064e3b;
+            --btn-secondary-hover: #065f46;
         }
     </style>
 </head>
@@ -238,10 +402,10 @@
             <h1>FlowSync</h1>
             <div class="button-group">
                 <button id="settings-btn" class="icon-btn" title="Settings">
-                    <img src="Images/Settings_Icon.png" alt="Settings">
+                    <img src="Images/Settings_icon.png" alt="Settings">
                 </button>
                 <button id="fullscreen-btn" class="icon-btn" title="Fullscreen">
-                    <img src="Images/Fullscreen_Icon.png" alt="Fullscreen">
+                    <img src="Images/Fullscreen_icon.png" alt="Fullscreen">
                 </button>
                 <button id="edit-btn" class="icon-btn" title="Edit / Reset">
                     <img src="Images/Edit_Icon.png" alt="Edit">
@@ -269,16 +433,31 @@
             </ul>
         </div>
         
-        <!-- Settings View -->
+        <!-- Modern Settings View -->
         <div id="settings-view">
-            <h2>Settings</h2>
-            
-            <div class="settings-row">
-                <span style="font-weight: 500;">Appearance</span>
-                <button id="theme-toggle-btn" class="btn-primary" style="align-self: center;">Switch to Dark Mode</button>
+            <div>
+                <div class="settings-header">Settings</div>
+                
+                <div class="settings-row">
+                    <span class="settings-label">Appearance</span>
+                    <button id="theme-toggle-btn" class="btn-settings">Switch to Dark Mode</button>
+                </div>
+
+                <div class="settings-row">
+                    <span class="settings-label">Theme</span>
+                    <div class="dropdown-container">
+                        <button id="theme-select-btn" class="btn-settings">Select a Theme ▼</button>
+                        <div id="theme-dropdown-menu" class="dropdown-menu">
+                            <div class="dropdown-item" data-theme="default">Default</div>
+                            <div class="dropdown-item" data-theme="ocean">Ocean Breeze</div>
+                            <div class="dropdown-item" data-theme="sunset">Sunset Glow</div>
+                            <div class="dropdown-item" data-theme="forest">Forest Canopy</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <button id="close-settings-btn" class="btn-primary" style="background-color: var(--btn-secondary);">Back</button>
+            <button id="close-settings-btn" class="btn-primary" style="background-color: var(--btn-secondary); margin-top: auto;">Back</button>
         </div>
 
     </div>
@@ -296,6 +475,10 @@
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
         const closeSettingsBtn = document.getElementById('close-settings-btn');
         
+        const themeSelectBtn = document.getElementById('theme-select-btn');
+        const themeDropdownMenu = document.getElementById('theme-dropdown-menu');
+        const themeItems = document.querySelectorAll('.dropdown-item');
+
         const bulletContainer = document.getElementById('bullet-container');
         const progressBar = document.getElementById('progress-bar');
         const mainContainer = document.getElementById('main-container');
@@ -323,11 +506,40 @@
         // Dark Mode Toggle Logic
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
+            
             if (document.body.classList.contains('dark-mode')) {
                 themeToggleBtn.textContent = 'Switch to Light Mode';
             } else {
                 themeToggleBtn.textContent = 'Switch to Dark Mode';
             }
+        });
+
+        // Theme Dropdown Toggle Logic
+        themeSelectBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            themeDropdownMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!themeDropdownMenu.contains(e.target) && e.target !== themeSelectBtn) {
+                themeDropdownMenu.classList.remove('show');
+            }
+        });
+
+        // Handle Theme Selection from Dropdown
+        themeItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                const selectedTheme = e.target.getAttribute('data-theme');
+                
+                document.body.classList.remove('theme-ocean', 'theme-sunset', 'theme-forest');
+                
+                if (selectedTheme !== 'default') {
+                    document.body.classList.add(`theme-${selectedTheme}`);
+                }
+
+                themeSelectBtn.textContent = e.target.textContent + ' ▼';
+                themeDropdownMenu.classList.remove('show');
+            });
         });
 
         // Start Workflow
@@ -383,7 +595,7 @@
         function renderBullets() {
             bulletContainer.innerHTML = ''; 
 
-			bullets.forEach((text, index) => {
+            bullets.forEach((text, index) => {
                 const li = document.createElement('li');
                 li.className = 'bullet';
                 li.textContent = text;
