@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlowSync</title>
+    <title>FlowSync - Assignment Workflow</title>
     <style>
         :root {
             --bg-color: #f8f9fa;
             --container-bg: #ffffff;
-            --textarea-bg: #ffffff;
             --text-color: #333333;
             --active-bg: #d1e7dd;
             --active-text: #0f5132;
@@ -18,15 +17,15 @@
             --btn-secondary: #6c757d;
             --btn-secondary-hover: #5c636a;
             --border-color: #ced4da;
+            --textarea-bg: #ffffff;
             --settings-btn-bg: #1a73e8;
             --settings-btn-hover: #1557b0;
         }
 
-        /* Dark Mode Variables */
+        /* Dark Mode Modifier */
         body.dark-mode {
             --bg-color: #0d0d0d;
             --container-bg: #161616;
-            --textarea-bg: #222222;
             --text-color: #ffffff;
             --active-bg: #2d3730;
             --active-text: #4caf50;
@@ -34,8 +33,58 @@
             --btn-secondary: #333333;
             --btn-secondary-hover: #444444;
             --border-color: #333333;
+            --textarea-bg: #222222;
             --settings-btn-bg: #2b7cff; 
             --settings-btn-hover: #1e5cbf;
+        }
+
+        /* Theme Overrides */
+        body.theme-ocean {
+            --bg-color: #0f172a;
+            --container-bg: #1e293b;
+            --text-color: #f8fafc;
+            --active-bg: #0369a1;
+            --active-text: #e0f2fe;
+            --active-border: #38bdf8;
+            --border-color: #334155;
+            --textarea-bg: #334155;
+        }
+        body.theme-ocean.dark-mode {
+            --bg-color: #020617;
+            --container-bg: #0f172a;
+            --textarea-bg: #1e293b;
+        }
+
+        body.theme-sunset {
+            --bg-color: #451a03;
+            --container-bg: #78350f;
+            --text-color: #fef3c7;
+            --active-bg: #b45309;
+            --active-text: #fffbeb;
+            --active-border: #fbbf24;
+            --border-color: #92400e;
+            --textarea-bg: #92400e;
+        }
+        body.theme-sunset.dark-mode {
+            --bg-color: #291001;
+            --container-bg: #451a03;
+            --textarea-bg: #78350f;
+        }
+
+        body.theme-forest {
+            --bg-color: #064e3b;
+            --container-bg: #065f46;
+            --text-color: #ecfdf5;
+            --active-bg: #047857;
+            --active-text: #f0fdf4;
+            --active-border: #34d399;
+            --border-color: #047857;
+            --textarea-bg: #047857;
+        }
+        body.theme-forest.dark-mode {
+            --bg-color: #022c22;
+            --container-bg: #064e3b;
+            --textarea-bg: #065f46;
         }
 
         body {
@@ -75,9 +124,42 @@
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
-            overflow-y: auto;
+            overflow-y: hidden !important;
         }
 
+        /* Fullscreen Practice Mode Refinements */
+        body.is-practicing .container:fullscreen .top-header h1 {
+            display: none;
+        }
+        
+        body.is-practicing .container:fullscreen .top-header {
+            justify-content: flex-end;
+            border-bottom: none;
+        }
+        
+        body.is-practicing .container:fullscreen .assistant-sidebar {
+            display: none !important;
+        }
+        
+        .esc-hint {
+            display: none;
+        }
+        
+        body.is-practicing .container:fullscreen .esc-hint {
+            display: inline;
+        }
+        
+        body.is-practicing .container:fullscreen .practice-area {
+            overflow: hidden;
+        }
+        
+        body.is-practicing .container:fullscreen #bullet-container {
+            overflow-y: auto;
+            padding-bottom: 50vh;
+            padding-right: 1rem;
+        }
+
+        /* Top Header layout */
         .top-header {
             display: flex;
             justify-content: space-between;
@@ -89,7 +171,7 @@
 
         h1 {
             margin: 0;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--text-color);
         }
 
@@ -98,6 +180,7 @@
             gap: 0.5rem;
         }
 
+        /* Icon Button Styles */
         .icon-btn {
             background-color: var(--btn-secondary);
             border: none;
@@ -123,6 +206,7 @@
             display: block;
         }
 
+        /* Views */
         #input-view {
             display: flex;
             flex-direction: column;
@@ -131,9 +215,25 @@
 
         #display-view {
             display: none;
+            flex-direction: row;
+            gap: 2rem;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .practice-area {
+            display: flex;
             flex-direction: column;
             gap: 1rem;
             flex-grow: 1;
+            min-width: 0;
+        }
+
+        .assistant-sidebar {
+            width: 300px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
         }
         
         #settings-view {
@@ -146,9 +246,9 @@
         textarea {
             width: 100%;
             min-height: 250px;
-            padding: 1rem;
+            padding: 1.25rem;
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 1.25rem;
             border: 1px solid var(--border-color);
             background-color: var(--textarea-bg);
             color: var(--text-color);
@@ -159,16 +259,17 @@
         }
 
         .help-text {
-            font-size: 0.9rem;
-            color: #6c757d;
+            font-size: 1.05rem;
+            color: var(--text-color);
+            opacity: 0.7;
             margin: 0;
         }
 
         .progress-container {
             width: 100%;
             background-color: var(--border-color);
-            border-radius: 4px;
-            height: 8px;
+            border-radius: 8px;
+            height: 16px;
             margin-bottom: 1rem;
             overflow: hidden;
         }
@@ -187,13 +288,14 @@
         }
 
         .bullet {
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.4rem;
             border-left: 4px solid transparent;
             border-radius: 0 4px 4px 0;
             color: var(--text-color);
             opacity: 0.7;
+            line-height: 1.5;
         }
 
         .bullet.active {
@@ -204,11 +306,12 @@
             opacity: 1;
         }
 
+        /* Buttons */
         .btn-primary {
             background-color: var(--btn-primary);
             color: white;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
+            padding: 0.85rem 1.75rem;
+            font-size: 1.15rem;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -221,6 +324,7 @@
             background-color: var(--btn-hover);
         }
 
+        /* Modern Settings Styles */
         .settings-header {
             font-size: 1.8rem;
             font-weight: 700;
@@ -232,6 +336,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.75rem 0;
+            position: relative;
         }
 
         .settings-label {
@@ -255,40 +360,36 @@
             background-color: var(--settings-btn-hover);
         }
 
-        .dropdown-container {
-            position: relative;
-            display: inline-block;
-        }
-
+        /* Dropdown custom menu */
         .dropdown-menu {
             display: none;
             position: absolute;
             right: 0;
             top: 100%;
-            margin-top: 0.5rem;
             background-color: var(--container-bg);
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
             border: 1px solid var(--border-color);
-            border-radius: 4px;
-            z-index: 1000;
+            border-radius: 6px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 10;
+            min-width: 180px;
             overflow: hidden;
-            flex-direction: column;
         }
 
         .dropdown-menu.show {
-            display: flex;
+            display: block;
         }
 
         .dropdown-item {
-            color: var(--text-color);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
+            padding: 0.85rem 1.25rem;
             cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 500;
+            color: var(--text-color);
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            transition: background-color 0.15s;
         }
 
         .dropdown-item:hover {
@@ -296,100 +397,52 @@
             color: var(--active-text);
         }
 
-        body.theme-ocean {
-            --bg-color: #e0f2fe;
-            --container-bg: #ffffff;
-            --textarea-bg: #ffffff;
-            --text-color: #0c4a6e;
-            --active-bg: #bae6fd;
-            --active-text: #0369a1;
-            --active-border: #0284c7;
-            --btn-primary: #0284c7;
-            --btn-hover: #0369a1;
-            --settings-btn-bg: #0ea5e9;
-            --settings-btn-hover: #0284c7;
-            --border-color: #bae6fd;
+        /* Gemini Assistant Helper Styles */
+        .gemini-panel {
+            padding: 1rem;
+            background-color: var(--textarea-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
         }
-
-        body.theme-sunset {
-            --bg-color: #fff1f2;
-            --container-bg: #ffffff;
-            --textarea-bg: #ffffff;
-            --text-color: #4c0519;
-            --active-bg: #fecdd3;
-            --active-text: #be123c;
-            --active-border: #e11d48;
-            --btn-primary: #e11d48;
-            --btn-hover: #be123c;
-            --settings-btn-bg: #f43f5e;
-            --settings-btn-hover: #e11d48;
-            --border-color: #fecdd3;
+        .gemini-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 1.15rem;
         }
-
-        body.theme-forest {
-            --bg-color: #ecfdf5;
-            --container-bg: #ffffff;
-            --textarea-bg: #ffffff;
-            --text-color: #064e3b;
-            --active-bg: #a7f3d0;
-            --active-text: #047857;
-            --active-border: #059669;
-            --btn-primary: #059669;
-            --btn-hover: #047857;
-            --settings-btn-bg: #10b981;
-            --settings-btn-hover: #059669;
-            --border-color: #a7f3d0;
+        .gemini-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
-
-        body.theme-ocean.dark-mode {
-            --bg-color: #082f49;
-            --container-bg: #0c4a6e;
-            --textarea-bg: #10587d;
-            --text-color: #f0f9ff;
-            --active-bg: #0369a1;
-            --active-text: #bae6fd;
-            --active-border: #38bdf8;
-            --btn-primary: #0284c7;
-            --btn-hover: #0ea5e9;
-            --settings-btn-bg: #0ea5e9;
-            --settings-btn-hover: #0284c7;
-            --border-color: #0369a1;
-            --btn-secondary: #1e3a8a;
-            --btn-secondary-hover: #1e40af;
+        .btn-gemini {
+            background-color: var(--btn-primary);
+            color: white;
+            padding: 0.5rem 0.8rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
         }
-
-        body.theme-sunset.dark-mode {
-            --bg-color: #4c0519;
-            --container-bg: #881337;
-            --textarea-bg: #9f1239;
-            --text-color: #fff1f2;
-            --active-bg: #be123c;
-            --active-text: #fecdd3;
-            --active-border: #fb7185;
-            --btn-primary: #e11d48;
-            --btn-hover: #f43f5e;
-            --settings-btn-bg: #f43f5e;
-            --settings-btn-hover: #e11d48;
-            --border-color: #be123c;
-            --btn-secondary: #831843;
-            --btn-secondary-hover: #9f1239;
+        .btn-gemini:hover {
+            background-color: var(--btn-hover);
         }
-
-        body.theme-forest.dark-mode {
-            --bg-color: #064e3b;
-            --container-bg: #065f46;
-            --textarea-bg: #047857;
-            --text-color: #ecfdf5;
-            --active-bg: #047857;
-            --active-text: #a7f3d0;
-            --active-border: #34d399;
-            --btn-primary: #059669;
-            --btn-hover: #10b981;
-            --settings-btn-bg: #10b981;
-            --settings-btn-hover: #059669;
-            --border-color: #047857;
-            --btn-secondary: #064e3b;
-            --btn-secondary-hover: #065f46;
+        .gemini-output {
+            font-size: 1.1rem;
+            white-space: pre-wrap;
+            background-color: var(--container-bg);
+            padding: 1rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            min-height: 40px;
+            max-height: 200px;
+            overflow-y: auto;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -402,13 +455,13 @@
             <h1>FlowSync</h1>
             <div class="button-group">
                 <button id="settings-btn" class="icon-btn" title="Settings">
-                    <img src="Images/Settings_Icon.png" alt="Settings">
+                    <img src="Images/Settings_icon.png" alt="Settings" onerror="this.src='https://placehold.co/24x24/6c757d/ffffff?text=⚙️'">
                 </button>
                 <button id="fullscreen-btn" class="icon-btn" title="Fullscreen">
-                    <img src="Images/Fullscreen_Icon.png" alt="Fullscreen">
+                    <img src="Images/Fullscreen_icon.png" alt="Fullscreen" onerror="this.src='https://placehold.co/24x24/6c757d/ffffff?text=⛶'">
                 </button>
                 <button id="edit-btn" class="icon-btn" title="Edit / Reset">
-                    <img src="Images/Edit_Icon.png" alt="Edit">
+                    <img src="Images/Edit_Icon.png" alt="Edit" onerror="this.src='https://placehold.co/24x24/6c757d/ffffff?text=✏️'">
                 </button>
             </div>
         </div>
@@ -422,15 +475,33 @@
 
         <!-- Practice Display View -->
         <div id="display-view">
-            <p class="help-text"><strong>Navigation:</strong> Space / ↓ / → (Next) | ↑ / ← (Previous) | <strong>Exit:</strong> ESC</p>
-            
-            <div class="progress-container">
-                <div id="progress-bar" class="progress-bar"></div>
+            <div class="practice-area">
+                <p class="help-text"><strong>Navigation:</strong> Space / ↓ / → (Next) | ↑ / ← (Previous)<span class="esc-hint"> | <strong>Exit:</strong> ESC</span></p>
+                
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+
+                <ul id="bullet-container">
+                    <!-- Steps injected here via JS -->
+                </ul>
             </div>
 
-            <ul id="bullet-container">
-                <!-- Steps injected here via JS -->
-            </ul>
+            <!-- Assistant Sidebar -->
+            <div class="assistant-sidebar" id="assistant-sidebar">
+                <div class="gemini-panel">
+                    <div class="gemini-header">
+                        <span>Assistant</span>
+                        <span style="font-size: 0.8rem; opacity: 0.7;">Helps with current step</span>
+                    </div>
+                    <div class="gemini-actions">
+                        <button class="btn-gemini" onclick="askGemini('explain')">💡 Explain Step</button>
+                        <button class="btn-gemini" onclick="askGemini('expand')">➕ Expand Details</button>
+                        <button class="btn-gemini" onclick="askGemini('quiz')">❓ Quiz Me</button>
+                    </div>
+                    <div id="gemini-output" class="gemini-output">Click an action above to get assistance on your highlighted step!</div>
+                </div>
+            </div>
         </div>
         
         <!-- Modern Settings View -->
@@ -439,20 +510,23 @@
                 <div class="settings-header">Settings</div>
                 
                 <div class="settings-row">
-                    <span class="settings-label">Appearance</span>
+                    <span class="settings-label">Appearance (Dark Mode)</span>
                     <button id="theme-toggle-btn" class="btn-settings">Switch to Dark Mode</button>
                 </div>
 
                 <div class="settings-row">
-                    <span class="settings-label">Theme</span>
-                    <div class="dropdown-container">
-                        <button id="theme-select-btn" class="btn-settings">Select a Theme ▼</button>
-                        <div id="theme-dropdown-menu" class="dropdown-menu">
-                            <div class="dropdown-item" data-theme="default">Default</div>
-                            <div class="dropdown-item" data-theme="ocean">Ocean Breeze</div>
-                            <div class="dropdown-item" data-theme="sunset">Sunset Glow</div>
-                            <div class="dropdown-item" data-theme="forest">Forest Canopy</div>
-                        </div>
+                    <span class="settings-label">Assistant</span>
+                    <button id="assistant-toggle-btn" class="btn-settings">Enabled</button>
+                </div>
+
+                <div class="settings-row" id="theme-dropdown-container">
+                    <span class="settings-label">Color Theme</span>
+                    <button id="theme-select-btn" class="btn-settings">Select a Theme ▼</button>
+                    <div id="dropdown-menu" class="dropdown-menu">
+                        <button class="dropdown-item" data-theme="default">Classic Light / Dark</button>
+                        <button class="dropdown-item" data-theme="ocean">Ocean Breeze</button>
+                        <button class="dropdown-item" data-theme="sunset">Sunset Glow</button>
+                        <button class="dropdown-item" data-theme="forest">Forest Canopy</button>
                     </div>
                 </div>
             </div>
@@ -475,17 +549,22 @@
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
         const closeSettingsBtn = document.getElementById('close-settings-btn');
         
-        const themeSelectBtn = document.getElementById('theme-select-btn');
-        const themeDropdownMenu = document.getElementById('theme-dropdown-menu');
-        const themeItems = document.querySelectorAll('.dropdown-item');
-
+        const assistantToggleBtn = document.getElementById('assistant-toggle-btn');
+        const assistantSidebar = document.getElementById('assistant-sidebar');
+        
         const bulletContainer = document.getElementById('bullet-container');
         const progressBar = document.getElementById('progress-bar');
         const mainContainer = document.getElementById('main-container');
 
+        // Theme dropdown elements
+        const themeSelectBtn = document.getElementById('theme-select-btn');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
         let bullets = [];
         let currentIndex = 0;
         let isPracticing = false;
+        let currentTheme = 'default';
+        let isAssistantEnabled = true;
 
         // Settings Toggle Logic
         settingsBtn.addEventListener('click', () => {
@@ -506,7 +585,6 @@
         // Dark Mode Toggle Logic
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
-            
             if (document.body.classList.contains('dark-mode')) {
                 themeToggleBtn.textContent = 'Switch to Light Mode';
             } else {
@@ -514,32 +592,42 @@
             }
         });
 
-        // Theme Dropdown Toggle Logic
+        // Dropdown Toggle Logic
         themeSelectBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            themeDropdownMenu.classList.toggle('show');
+            dropdownMenu.classList.toggle('show');
         });
 
+        // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
-            if (!themeDropdownMenu.contains(e.target) && e.target !== themeSelectBtn) {
-                themeDropdownMenu.classList.remove('show');
+            if (!themeSelectBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('show');
             }
         });
 
-        // Handle Theme Selection from Dropdown
-        themeItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                const selectedTheme = e.target.getAttribute('data-theme');
+        // Handle Theme Selection
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const selectedTheme = item.getAttribute('data-theme');
                 
+                // Remove existing theme classes
                 document.body.classList.remove('theme-ocean', 'theme-sunset', 'theme-forest');
                 
                 if (selectedTheme !== 'default') {
                     document.body.classList.add(`theme-${selectedTheme}`);
                 }
-
-                themeSelectBtn.textContent = e.target.textContent + ' ▼';
-                themeDropdownMenu.classList.remove('show');
+                
+                currentTheme = selectedTheme;
+                themeSelectBtn.textContent = item.textContent + ' ▼';
+                dropdownMenu.classList.remove('show');
             });
+        });
+
+        // Assistant Toggle Logic
+        assistantToggleBtn.addEventListener('click', () => {
+            isAssistantEnabled = !isAssistantEnabled;
+            assistantToggleBtn.textContent = isAssistantEnabled ? 'Enabled' : 'Disabled';
+            assistantSidebar.style.display = isAssistantEnabled ? 'flex' : 'none';
         });
 
         // Start Workflow
@@ -551,12 +639,12 @@
                 .filter(line => line.length > 0);
 
             if (bullets.length === 0) {
-                alert('Please enter some steps before starting.');
                 return;
             }
 
             currentIndex = 0;
             isPracticing = true;
+            document.body.classList.add('is-practicing');
 
             renderBullets();
             inputView.style.display = 'none';
@@ -567,6 +655,7 @@
         // Edit / Reset Button
         editBtn.addEventListener('click', () => {
             isPracticing = false;
+            document.body.classList.remove('is-practicing');
             
             if (document.fullscreenElement) {
                 document.exitFullscreen().catch(() => {});
@@ -641,6 +730,25 @@
                 }
             }
         });
+
+        // Gemini Assistant Integration Mock
+        async function askGemini(action) {
+            const outputBox = document.getElementById('gemini-output');
+            const currentStepText = bullets[currentIndex] || "No active step selected.";
+            
+            outputBox.textContent = "Thinking...";
+
+            // Simulate direct Gemini API response or execute query
+            setTimeout(() => {
+                if (action === 'explain') {
+                    outputBox.textContent = `💡 Explanation for: "${currentStepText}"\nThis step focuses on breaking down the core concepts clearly for efficient recall and mastery.`;
+                } else if (action === 'expand') {
+                    outputBox.textContent = `➕ Expanded details for: "${currentStepText}"\n• Key background context\n• Practical implementation notes\n• Common pitfalls to avoid`;
+                } else if (action === 'quiz') {
+                    outputBox.textContent = `❓ Quick Quiz Question:\nWhat is the primary objective of "${currentStepText}"? (Think about your answer and check your notes!)`;
+                }
+            }, 400);
+        }
     </script>
 </body>
 </html>
