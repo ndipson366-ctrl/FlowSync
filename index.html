@@ -1,439 +1,756 @@
-:root {
-    --bg-color: #f8f9fa;
-    --container-bg: #ffffff;
-    --text-color: #333333;
-    --active-bg: #d1e7dd;
-    --active-text: #0f5132;
-    --active-border: #198754;
-    --btn-primary: #0d6efd;
-    --btn-hover: #0b5ed7;
-    --btn-secondary: #6c757d;
-    --btn-secondary-hover: #5c636a;
-    --border-color: #ced4da;
-    --textarea-bg: #ffffff;
-    --settings-btn-bg: #1a73e8;
-    --settings-btn-hover: #1557b0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowSync - Assignment Workflow</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --container-bg: #ffffff;
+            --text-color: #333333;
+            --active-bg: #d1e7dd;
+            --active-text: #0f5132;
+            --active-border: #198754;
+            --btn-primary: #0d6efd;
+            --btn-hover: #0b5ed7;
+            --btn-secondary: #6c757d;
+            --btn-secondary-hover: #5c636a;
+            --border-color: #ced4da;
+            --textarea-bg: #ffffff;
+            --settings-btn-bg: #1a73e8;
+            --settings-btn-hover: #1557b0;
+        }
 
-/* Dark Mode Modifier */
-body.dark-mode {
-    --bg-color: #0d0d0d;
-    --container-bg: #161616;
-    --text-color: #ffffff;
-    --active-bg: #2d3730;
-    --active-text: #4caf50;
-    --active-border: #4caf50;
-    --btn-secondary: #333333;
-    --btn-secondary-hover: #444444;
-    --border-color: #333333;
-    --textarea-bg: #222222;
-    --settings-btn-bg: #2b7cff; 
-    --settings-btn-hover: #1e5cbf;
-}
+        /* Dark Mode Modifier */
+        body.dark-mode {
+            --bg-color: #0d0d0d;
+            --container-bg: #161616;
+            --text-color: #ffffff;
+            --active-bg: #2d3730;
+            --active-text: #4caf50;
+            --active-border: #4caf50;
+            --btn-secondary: #333333;
+            --btn-secondary-hover: #444444;
+            --border-color: #333333;
+            --textarea-bg: #222222;
+            --settings-btn-bg: #2b7cff; 
+            --settings-btn-hover: #1e5cbf;
+        }
 
-/* Theme Overrides */
-body.theme-ocean {
-    --bg-color: #0f172a;
-    --container-bg: #1e293b;
-    --text-color: #f8fafc;
-    --active-bg: #0369a1;
-    --active-text: #e0f2fe;
-    --active-border: #38bdf8;
-    --border-color: #334155;
-    --textarea-bg: #334155;
-}
-body.theme-ocean.dark-mode {
-    --bg-color: #020617;
-    --container-bg: #0f172a;
-    --textarea-bg: #1e293b;
-}
+        /* Theme Overrides */
+        body.theme-ocean {
+            --bg-color: #0f172a;
+            --container-bg: #1e293b;
+            --text-color: #f8fafc;
+            --active-bg: #0369a1;
+            --active-text: #e0f2fe;
+            --active-border: #38bdf8;
+            --border-color: #334155;
+            --textarea-bg: #334155;
+        }
+        body.theme-ocean.dark-mode {
+            --bg-color: #020617;
+            --container-bg: #0f172a;
+            --textarea-bg: #1e293b;
+        }
 
-body.theme-sunset {
-    --bg-color: #451a03;
-    --container-bg: #78350f;
-    --text-color: #fef3c7;
-    --active-bg: #b45309;
-    --active-text: #fffbeb;
-    --active-border: #fbbf24;
-    --border-color: #92400e;
-    --textarea-bg: #92400e;
-}
-body.theme-sunset.dark-mode {
-    --bg-color: #291001;
-    --container-bg: #451a03;
-    --textarea-bg: #78350f;
-}
+        body.theme-sunset {
+            --bg-color: #451a03;
+            --container-bg: #78350f;
+            --text-color: #fef3c7;
+            --active-bg: #b45309;
+            --active-text: #fffbeb;
+            --active-border: #fbbf24;
+            --border-color: #92400e;
+            --textarea-bg: #92400e;
+        }
+        body.theme-sunset.dark-mode {
+            --bg-color: #291001;
+            --container-bg: #451a03;
+            --textarea-bg: #78350f;
+        }
 
-body.theme-forest {
-    --bg-color: #064e3b;
-    --container-bg: #065f46;
-    --text-color: #ecfdf5;
-    --active-bg: #047857;
-    --active-text: #f0fdf4;
-    --active-border: #34d399;
-    --border-color: #047857;
-    --textarea-bg: #047857;
-}
-body.theme-forest.dark-mode {
-    --bg-color: #022c22;
-    --container-bg: #064e3b;
-    --textarea-bg: #065f46;
-}
+        body.theme-forest {
+            --bg-color: #064e3b;
+            --container-bg: #065f46;
+            --text-color: #ecfdf5;
+            --active-bg: #047857;
+            --active-text: #f0fdf4;
+            --active-border: #34d399;
+            --border-color: #047857;
+            --textarea-bg: #047857;
+        }
+        body.theme-forest.dark-mode {
+            --bg-color: #022c22;
+            --container-bg: #064e3b;
+            --textarea-bg: #065f46;
+        }
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    margin: 0;
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-    transition: background-color 0.3s, color 0.3s;
-}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-.container {
-    background-color: var(--container-bg);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 800px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    transition: background-color 0.3s;
-}
+        .container {
+            background-color: var(--container-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s;
+        }
 
-/* Fullscreen immersive styles */
-:fullscreen {
-    background-color: var(--container-bg);
-    width: 100vw !important;
-    height: 100vh !important;
-    max-width: none !important;
-    padding: 2.3rem !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    overflow-y: hidden !important;
-}
+        /* Fullscreen immersive styles */
+        :fullscreen {
+            background-color: var(--container-bg);
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: none !important;
+            padding: 2.3rem !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            overflow-y: hidden !important;
+        }
 
-/* Fullscreen Practice Mode Refinements */
-body.is-practicing .container:fullscreen .top-header h1 {
-    display: none;
-}
+        /* Fullscreen Practice Mode Refinements */
+        body.is-practicing .container:fullscreen .top-header h1 {
+            display: none;
+        }
+        
+        body.is-practicing .container:fullscreen .top-header {
+            justify-content: flex-end;
+            border-bottom: none;
+        }
+        
+        body.is-practicing .container:fullscreen .assistant-sidebar {
+            display: none !important;
+        }
+        
+        .esc-hint {
+            display: none;
+        }
+        
+        body.is-practicing .container:fullscreen .esc-hint {
+            display: inline;
+        }
+        
+        body.is-practicing .container:fullscreen .practice-area {
+            overflow: hidden;
+        }
+        
+        body.is-practicing .container:fullscreen #bullet-container {
+            overflow-y: auto;
+            padding-bottom: 50vh;
+            padding-right: 1rem;
+        }
 
-body.is-practicing .container:fullscreen .top-header {
-    justify-content: flex-end;
-    border-bottom: none;
-}
+        /* Top Header layout */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
 
-body.is-practicing .container:fullscreen .assistant-sidebar {
-    display: none !important;
-}
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--text-color);
+        }
 
-.esc-hint {
-    display: none;
-}
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+        }
 
-body.is-practicing .container:fullscreen .esc-hint {
-    display: inline;
-}
+        /* Icon Button Styles */
+        .icon-btn {
+            background-color: var(--btn-secondary);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            transition: background-color 0.15s ease-in-out;
+        }
 
-body.is-practicing .container:fullscreen .practice-area {
-    overflow: hidden;
-}
+        .icon-btn:hover {
+            background-color: var(--btn-secondary-hover);
+        }
 
-body.is-practicing .container:fullscreen #bullet-container {
-    overflow-y: auto;
-    padding-bottom: 50vh;
-    padding-right: 1rem;
-}
+        .icon-btn img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            display: block;
+        }
 
-/* Top Header layout */
-.top-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
-}
+        /* Views */
+        #input-view {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
 
-h1 {
-    margin: 0;
-    font-size: 1.8rem;
-    color: var(--text-color);
-}
+        #display-view {
+            display: none;
+            flex-direction: row;
+            gap: 2rem;
+            flex-grow: 1;
+            overflow: hidden;
+        }
 
-.button-group {
-    display: flex;
-    gap: 0.5rem;
-}
+        .practice-area {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex-grow: 1;
+            min-width: 0;
+        }
 
-/* Icon Button Styles */
-.icon-btn {
-    background-color: var(--btn-secondary);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    transition: background-color 0.15s ease-in-out;
-}
+        .assistant-sidebar {
+            width: 300px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #settings-view {
+            display: none;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 1rem 0;
+        }
 
-.icon-btn:hover {
-    background-color: var(--btn-secondary-hover);
-}
+        textarea {
+            width: 100%;
+            min-height: 250px;
+            padding: 1.25rem;
+            font-family: inherit;
+            font-size: 1.25rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--textarea-bg);
+            color: var(--text-color);
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
 
-.icon-btn img {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-    display: block;
-}
+        .help-text {
+            font-size: 1.05rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin: 0;
+        }
 
-/* Views */
-#input-view {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
+        .progress-container {
+            width: 100%;
+            background-color: var(--border-color);
+            border-radius: 8px;
+            height: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
 
-#display-view {
-    display: none;
-    flex-direction: row;
-    gap: 2rem;
-    flex-grow: 1;
-    overflow: hidden;
-}
+        .progress-bar {
+            height: 100%;
+            background-color: var(--active-border);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
 
-.practice-area {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    flex-grow: 1;
-    min-width: 0;
-}
+        #bullet-container {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
 
-.assistant-sidebar {
-    width: 300px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-}
+        .bullet {
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.4rem;
+            border-left: 4px solid transparent;
+            border-radius: 0 4px 4px 0;
+            color: var(--text-color);
+            opacity: 0.7;
+            line-height: 1.5;
+        }
 
-#settings-view {
-    display: none;
-    flex-direction: column;
-    gap: 2rem;
-    padding: 1rem 0;
-}
+        .bullet.active {
+            background-color: var(--active-bg);
+            color: var(--active-text);
+            border-left: 4px solid var(--active-border);
+            font-weight: 500;
+            opacity: 1;
+        }
 
-textarea {
-    width: 100%;
-    min-height: 250px;
-    padding: 1.25rem;
-    font-family: inherit;
-    font-size: 1.25rem;
-    border: 1px solid var(--border-color);
-    background-color: var(--textarea-bg);
-    color: var(--text-color);
-    border-radius: 4px;
-    resize: vertical;
-    box-sizing: border-box;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--btn-primary);
+            color: white;
+            padding: 0.85rem 1.75rem;
+            font-size: 1.15rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            align-self: flex-start;
+            font-weight: 500;
+            transition: background-color 0.15s ease-in-out;
+        }
 
-.help-text {
-    font-size: 1.05rem;
-    color: var(--text-color);
-    opacity: 0.7;
-    margin: 0;
-}
+        .btn-primary:hover {
+            background-color: var(--btn-hover);
+        }
 
-.progress-container {
-    width: 100%;
-    background-color: var(--border-color);
-    border-radius: 8px;
-    height: 16px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-}
+        /* Modern Settings Styles */
+        .settings-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
 
-.progress-bar {
-    height: 100%;
-    background-color: var(--active-border);
-    width: 0%;
-    transition: width 0.3s ease;
-}
+        .settings-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            position: relative;
+        }
 
-#bullet-container {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
+        .settings-label {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
 
-.bullet {
-    padding: 1rem 1.25rem;
-    margin-bottom: 0.75rem;
-    font-size: 1.4rem;
-    border-left: 4px solid transparent;
-    border-radius: 0 4px 4px 0;
-    color: var(--text-color);
-    opacity: 0.7;
-    line-height: 1.5;
-}
+        .btn-settings {
+            background-color: var(--settings-btn-bg);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
 
-.bullet.active {
-    background-color: var(--active-bg);
-    color: var(--active-text);
-    border-left: 4px solid var(--active-border);
-    font-weight: 500;
-    opacity: 1;
-}
+        .btn-settings:hover {
+            background-color: var(--settings-btn-hover);
+        }
 
-/* Buttons */
-.btn-primary {
-    background-color: var(--btn-primary);
-    color: white;
-    padding: 0.85rem 1.75rem;
-    font-size: 1.15rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    align-self: flex-start;
-    font-weight: 500;
-    transition: background-color 0.15s ease-in-out;
-}
+        /* Dropdown custom menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 10;
+            min-width: 180px;
+            overflow: hidden;
+        }
 
-.btn-primary:hover {
-    background-color: var(--btn-hover);
-}
+        .dropdown-menu.show {
+            display: block;
+        }
 
-/* Modern Settings Styles */
-.settings-header {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
+        .dropdown-item {
+            padding: 0.85rem 1.25rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-color);
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            transition: background-color 0.15s;
+        }
 
-.settings-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 0;
-    position: relative;
-}
+        .dropdown-item:hover {
+            background-color: var(--active-bg);
+            color: var(--active-text);
+        }
 
-.settings-label {
-    font-size: 1.25rem;
-    font-weight: 600;
-}
+        /* Gemini Assistant Helper Styles */
+        .gemini-panel {
+            padding: 1rem;
+            background-color: var(--textarea-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .gemini-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 1.15rem;
+        }
+        .gemini-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .btn-gemini {
+            background-color: var(--btn-primary);
+            color: white;
+            padding: 0.5rem 0.8rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .btn-gemini:hover {
+            background-color: var(--btn-hover);
+        }
+        .gemini-output {
+            font-size: 1.1rem;
+            white-space: pre-wrap;
+            background-color: var(--container-bg);
+            padding: 1rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            min-height: 40px;
+            max-height: 200px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
 
-.btn-settings {
-    background-color: var(--settings-btn-bg);
-    color: white;
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
+    <div class="container" id="main-container">
+        
+        <!-- Persistent Top Header -->
+        <div class="top-header">
+            <h1>FlowSync</h1>
+            <div class="button-group">
+                <button id="settings-btn" class="icon-btn" title="Settings">
+                    <img src="Images/Settings_Icon.png" alt="Settings" onerror="this.src='https://placehold.co/24x24/6c757d/ffffff?text=⚙️'">
+                </button>
+                <button id="fullscreen-btn" class="icon-btn" title="Fullscreen">
+                    <img src="Images/Fullscreen_Icon.png" alt="Fullscreen" onerror="this.src='https://placehold.co/24x24/6c757d/ffffff?text=⛶'">
+                </button>
+                <button id="edit-btn" class="icon-btn" title="Edit / Reset">
+                    <img src="Images/Edit_Icon.png" alt="Edit" onerror="this.src='https://placehold.co/24x24/6c757d/ffffff?text=✏️'">
+                </button>
+            </div>
+        </div>
 
-.btn-settings:hover {
-    background-color: var(--settings-btn-hover);
-}
+        <!-- Text Input View -->
+        <div id="input-view">
+            <p class="help-text">Paste your assignment steps or workflow notes below. Each line will become a separate step.</p>
+            <textarea id="text-input" placeholder="Paste your assignment steps here...&#10;Step 1: Research topic&#10;Step 2: Draft outline&#10;Step 3: Write introduction"></textarea>
+            <button id="start-btn" class="btn-primary">Start Workflow</button>
+        </div>
 
-/* Dropdown custom menu */
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: var(--container-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    z-index: 10;
-    min-width: 180px;
-    overflow: hidden;
-}
+        <!-- Practice Display View -->
+        <div id="display-view">
+            <div class="practice-area">
+                <p class="help-text"><strong>Navigation:</strong> Space / ↓ / → (Next) | ↑ / ← (Previous)<span class="esc-hint"> | <strong>Exit:</strong> ESC</span></p>
+                
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
 
-.dropdown-menu.show {
-    display: block;
-}
+                <ul id="bullet-container">
+                    <!-- Steps injected here via JS -->
+                </ul>
+            </div>
 
-.dropdown-item {
-    padding: 0.85rem 1.25rem;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--text-color);
-    background: none;
-    border: none;
-    width: 100%;
-    text-align: left;
-    transition: background-color 0.15s;
-}
+            <!-- Assistant Sidebar -->
+            <div class="assistant-sidebar" id="assistant-sidebar">
+                <div class="gemini-panel">
+                    <div class="gemini-header">
+                        <span>Assistant</span>
+                        <span style="font-size: 0.8rem; opacity: 0.7;">Helps with current step</span>
+                    </div>
+                    <div class="gemini-actions">
+                        <button class="btn-gemini" onclick="askGemini('explain')">💡 Explain Step</button>
+                        <button class="btn-gemini" onclick="askGemini('expand')">➕ Expand Details</button>
+                        <button class="btn-gemini" onclick="askGemini('quiz')">❓ Quiz Me</button>
+                    </div>
+                    <div id="gemini-output" class="gemini-output">Click an action above to get assistance on your highlighted step!</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modern Settings View -->
+        <div id="settings-view">
+            <div>
+                <div class="settings-header">Settings</div>
+                
+                <div class="settings-row">
+                    <span class="settings-label">Appearance (Dark Mode)</span>
+                    <button id="theme-toggle-btn" class="btn-settings">Switch to Dark Mode</button>
+                </div>
 
-.dropdown-item:hover {
-    background-color: var(--active-bg);
-    color: var(--active-text);
-}
+                <div class="settings-row">
+                    <span class="settings-label">Assistant</span>
+                    <button id="assistant-toggle-btn" class="btn-settings">Enabled</button>
+                </div>
 
-/* Gemini Assistant Helper Styles */
-.gemini-panel {
-    padding: 1rem;
-    background-color: var(--textarea-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-.gemini-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 600;
-    font-size: 1.15rem;
-}
-.gemini-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-.btn-gemini {
-    background-color: var(--btn-primary);
-    color: white;
-    padding: 0.5rem 0.8rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-}
-.btn-gemini:hover {
-    background-color: var(--btn-hover);
-}
-.gemini-output {
-    font-size: 1.1rem;
-    white-space: pre-wrap;
-    background-color: var(--container-bg);
-    padding: 1rem;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
-    min-height: 40px;
-    max-height: 200px;
-    overflow-y: auto;
-    line-height: 1.5;
-}
+                <div class="settings-row" id="theme-dropdown-container">
+                    <span class="settings-label">Color Theme</span>
+                    <button id="theme-select-btn" class="btn-settings">Select a Theme ▼</button>
+                    <div id="dropdown-menu" class="dropdown-menu">
+                        <button class="dropdown-item" data-theme="default">Classic Light / Dark</button>
+                        <button class="dropdown-item" data-theme="ocean">Ocean Breeze</button>
+                        <button class="dropdown-item" data-theme="sunset">Sunset Glow</button>
+                        <button class="dropdown-item" data-theme="forest">Forest Canopy</button>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="close-settings-btn" class="btn-primary" style="background-color: var(--btn-secondary); margin-top: auto;">Back</button>
+        </div>
+
+    </div>
+
+    <script>
+        const inputView = document.getElementById('input-view');
+        const displayView = document.getElementById('display-view');
+        const settingsView = document.getElementById('settings-view');
+        
+        const textInput = document.getElementById('text-input');
+        const startBtn = document.getElementById('start-btn');
+        const editBtn = document.getElementById('edit-btn');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const settingsBtn = document.getElementById('settings-btn');
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const closeSettingsBtn = document.getElementById('close-settings-btn');
+        
+        const assistantToggleBtn = document.getElementById('assistant-toggle-btn');
+        const assistantSidebar = document.getElementById('assistant-sidebar');
+        
+        const bulletContainer = document.getElementById('bullet-container');
+        const progressBar = document.getElementById('progress-bar');
+        const mainContainer = document.getElementById('main-container');
+
+        // Theme dropdown elements
+        const themeSelectBtn = document.getElementById('theme-select-btn');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        let bullets = [];
+        let currentIndex = 0;
+        let isPracticing = false;
+        let currentTheme = 'default';
+        let isAssistantEnabled = true;
+
+        // Settings Toggle Logic
+        settingsBtn.addEventListener('click', () => {
+            inputView.style.display = 'none';
+            displayView.style.display = 'none';
+            settingsView.style.display = 'flex';
+        });
+
+        closeSettingsBtn.addEventListener('click', () => {
+            settingsView.style.display = 'none';
+            if (isPracticing) {
+                displayView.style.display = 'flex';
+            } else {
+                inputView.style.display = 'flex';
+            }
+        });
+
+        // Dark Mode Toggle Logic
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeToggleBtn.textContent = 'Switch to Light Mode';
+            } else {
+                themeToggleBtn.textContent = 'Switch to Dark Mode';
+            }
+        });
+
+        // Dropdown Toggle Logic
+        themeSelectBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!themeSelectBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+
+        // Handle Theme Selection
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const selectedTheme = item.getAttribute('data-theme');
+                
+                // Remove existing theme classes
+                document.body.classList.remove('theme-ocean', 'theme-sunset', 'theme-forest');
+                
+                if (selectedTheme !== 'default') {
+                    document.body.classList.add(`theme-${selectedTheme}`);
+                }
+                
+                currentTheme = selectedTheme;
+                themeSelectBtn.textContent = item.textContent + ' ▼';
+                dropdownMenu.classList.remove('show');
+            });
+        });
+
+        // Assistant Toggle Logic
+        assistantToggleBtn.addEventListener('click', () => {
+            isAssistantEnabled = !isAssistantEnabled;
+            assistantToggleBtn.textContent = isAssistantEnabled ? 'Enabled' : 'Disabled';
+            if (isPracticing) {
+                assistantSidebar.style.display = isAssistantEnabled ? 'flex' : 'none';
+            }
+        });
+
+        // Start Workflow
+        startBtn.addEventListener('click', () => {
+            const rawText = textInput.value;
+            
+            bullets = rawText.split('\n')
+                .map(line => line.trim())
+                .filter(line => line.length > 0);
+
+            if (bullets.length === 0) {
+                return;
+            }
+
+            currentIndex = 0;
+            isPracticing = true;
+            document.body.classList.add('is-practicing');
+
+            renderBullets();
+            inputView.style.display = 'none';
+            settingsView.style.display = 'none';
+            displayView.style.display = 'flex';
+            assistantSidebar.style.display = isAssistantEnabled ? 'flex' : 'none';
+        });
+
+        // Edit / Reset Button
+        editBtn.addEventListener('click', () => {
+            isPracticing = false;
+            document.body.classList.remove('is-practicing');
+            
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(() => {});
+            }
+            
+            displayView.style.display = 'none';
+            settingsView.style.display = 'none';
+            inputView.style.display = 'flex';
+            textInput.focus();
+        });
+
+        // Fullscreen Toggle
+        fullscreenBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                mainContainer.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        });
+
+        // Render List
+        function renderBullets() {
+            bulletContainer.innerHTML = ''; 
+
+            bullets.forEach((text, index) => {
+                const li = document.createElement('li');
+                li.className = 'bullet';
+                li.textContent = text;
+                li.id = `bullet-${index}`;
+                bulletContainer.appendChild(li);
+            });
+
+            updateHighlight();
+        }
+
+        // Update Active Highlight & Progress Bar
+        function updateHighlight() {
+            const allBullets = document.querySelectorAll('.bullet');
+            allBullets.forEach(bullet => bullet.classList.remove('active'));
+
+            const activeBullet = document.getElementById(`bullet-${currentIndex}`);
+            if (activeBullet) {
+                activeBullet.classList.add('active');
+                activeBullet.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            const progressPercentage = ((currentIndex + 1) / bullets.length) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (!isPracticing || settingsView.style.display === 'flex') return;
+
+            if (e.code === 'Space' || e.code === 'ArrowDown' || e.code === 'ArrowRight') {
+                e.preventDefault();
+                if (currentIndex < bullets.length - 1) {
+                    currentIndex++;
+                    updateHighlight();
+                }
+            }
+            
+            if (e.code === 'ArrowUp' || e.code === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateHighlight();
+                }
+            }
+        });
+
+        // Assistant Actions
+        async function askGemini(action) {
+            const outputBox = document.getElementById('gemini-output');
+            const currentStepText = bullets[currentIndex] || "No active step selected.";
+            
+            outputBox.textContent = "Thinking...";
+
+            setTimeout(() => {
+                if (action === 'explain') {
+                    outputBox.textContent = `💡 Explanation for: "${currentStepText}"\nThis step focuses on breaking down the core concepts clearly for efficient recall and mastery.`;
+                } else if (action === 'expand') {
+                    outputBox.textContent = `➕ Expanded details for: "${currentStepText}"\n• Key background context\n• Practical implementation notes\n• Common pitfalls to avoid`;
+                } else if (action === 'quiz') {
+                    outputBox.textContent = `❓ Quick Quiz Question:\nWhat is the primary objective of "${currentStepText}"? (Think about your answer and check your notes!)`;
+                }
+            }, 400);
+        }
+    </script>
+</body>
+</html>
