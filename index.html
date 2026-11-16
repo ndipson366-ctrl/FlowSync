@@ -17,12 +17,11 @@
             --btn-secondary: #6c757d;
             --btn-secondary-hover: #5c636a;
             --border-color: #ced4da;
-            --textarea-bg: #ffffff;
-            --settings-btn-bg: #1a73e8;
+            --settings-btn-bg: #1a73e8; 
             --settings-btn-hover: #1557b0;
         }
 
-        /* Dark Mode Modifier */
+        /* Dark Mode Variables */
         body.dark-mode {
             --bg-color: #0d0d0d;
             --container-bg: #161616;
@@ -33,58 +32,8 @@
             --btn-secondary: #333333;
             --btn-secondary-hover: #444444;
             --border-color: #333333;
-            --textarea-bg: #222222;
             --settings-btn-bg: #2b7cff; 
             --settings-btn-hover: #1e5cbf;
-        }
-
-        /* Theme Overrides */
-        body.theme-ocean {
-            --bg-color: #0f172a;
-            --container-bg: #1e293b;
-            --text-color: #f8fafc;
-            --active-bg: #0369a1;
-            --active-text: #e0f2fe;
-            --active-border: #38bdf8;
-            --border-color: #334155;
-            --textarea-bg: #334155;
-        }
-        body.theme-ocean.dark-mode {
-            --bg-color: #020617;
-            --container-bg: #0f172a;
-            --textarea-bg: #1e293b;
-        }
-
-        body.theme-sunset {
-            --bg-color: #451a03;
-            --container-bg: #78350f;
-            --text-color: #fef3c7;
-            --active-bg: #b45309;
-            --active-text: #fffbeb;
-            --active-border: #fbbf24;
-            --border-color: #92400e;
-            --textarea-bg: #92400e;
-        }
-        body.theme-sunset.dark-mode {
-            --bg-color: #291001;
-            --container-bg: #451a03;
-            --textarea-bg: #78350f;
-        }
-
-        body.theme-forest {
-            --bg-color: #064e3b;
-            --container-bg: #065f46;
-            --text-color: #ecfdf5;
-            --active-bg: #047857;
-            --active-text: #f0fdf4;
-            --active-border: #34d399;
-            --border-color: #047857;
-            --textarea-bg: #047857;
-        }
-        body.theme-forest.dark-mode {
-            --bg-color: #022c22;
-            --container-bg: #064e3b;
-            --textarea-bg: #065f46;
         }
 
         body {
@@ -93,25 +42,19 @@
             color: var(--text-color);
             line-height: 1.6;
             margin: 0;
-            padding: 0;
+            padding: 2rem;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            width: 100vw;
-            overflow-x: hidden;
-            box-sizing: border-box;
             transition: background-color 0.3s, color 0.3s;
         }
 
         .container {
             background-color: var(--container-bg);
             padding: 2rem;
-            border-radius: 0;
-            box-shadow: none;
-            width: 100vw;
-            height: 100vh;
-            max-width: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -130,39 +73,7 @@
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
-            overflow-y: hidden !important;
-        }
-
-        /* Fullscreen Practice Mode Refinements */
-        body.is-practicing .container:fullscreen .top-header h1 {
-            display: none;
-        }
-        
-        body.is-practicing .container:fullscreen .top-header {
-            justify-content: flex-end;
-            border-bottom: none;
-        }
-        
-        body.is-practicing .container:fullscreen .assistant-sidebar {
-            display: none !important;
-        }
-        
-        .esc-hint {
-            display: none;
-        }
-        
-        body.is-practicing .container:fullscreen .esc-hint {
-            display: inline;
-        }
-        
-        body.is-practicing .container:fullscreen .practice-area {
-            overflow: hidden;
-        }
-        
-        body.is-practicing .container:fullscreen #bullet-container {
             overflow-y: auto;
-            padding-bottom: 50vh;
-            padding-right: 1rem;
         }
 
         /* Top Header layout */
@@ -177,7 +88,7 @@
 
         h1 {
             margin: 0;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--text-color);
         }
 
@@ -217,34 +128,13 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            flex-grow: 1;
-            height: 100%;
         }
 
         #display-view {
             display: none;
-            flex-direction: row;
-            gap: 2rem;
-            flex-grow: 1;
-            overflow: hidden;
-            height: 100%;
-        }
-
-        .practice-area {
-            display: flex;
             flex-direction: column;
             gap: 1rem;
             flex-grow: 1;
-            min-width: 0;
-            height: 100%;
-        }
-
-        .assistant-sidebar {
-            width: 320px;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
         }
         
         #settings-view {
@@ -252,38 +142,34 @@
             flex-direction: column;
             gap: 2rem;
             padding: 1rem 0;
-            flex-grow: 1;
-            height: 100%;
         }
 
         textarea {
             width: 100%;
-            flex-grow: 1;
-            min-height: 300px;
-            padding: 1.25rem;
+            min-height: 250px;
+            padding: 1rem;
             font-family: inherit;
-            font-size: 1.25rem;
+            font-size: 1rem;
             border: 1px solid var(--border-color);
-            background-color: var(--textarea-bg);
+            background-color: var(--container-bg);
             color: var(--text-color);
-            border-radius: 6px;
-            resize: none;
+            border-radius: 4px;
+            resize: vertical;
             box-sizing: border-box;
             transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
         .help-text {
-            font-size: 1.05rem;
-            color: var(--text-color);
-            opacity: 0.7;
+            font-size: 0.9rem;
+            color: #6c757d;
             margin: 0;
         }
 
         .progress-container {
             width: 100%;
             background-color: var(--border-color);
-            border-radius: 8px;
-            height: 16px;
+            border-radius: 4px;
+            height: 8px;
             margin-bottom: 1rem;
             overflow: hidden;
         }
@@ -299,20 +185,16 @@
             list-style-type: none;
             padding: 0;
             margin: 0;
-            overflow-y: auto;
-            flex-grow: 1;
-            padding-right: 0.5rem;
         }
 
         .bullet {
-            padding: 1rem 1.25rem;
-            margin-bottom: 0.75rem;
-            font-size: 1.4rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
             border-left: 4px solid transparent;
             border-radius: 0 4px 4px 0;
             color: var(--text-color);
             opacity: 0.7;
-            line-height: 1.5;
         }
 
         .bullet.active {
@@ -327,8 +209,8 @@
         .btn-primary {
             background-color: var(--btn-primary);
             color: white;
-            padding: 0.85rem 1.75rem;
-            font-size: 1.15rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -353,7 +235,6 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.75rem 0;
-            position: relative;
         }
 
         .settings-label {
@@ -376,92 +257,6 @@
         .btn-settings:hover {
             background-color: var(--settings-btn-hover);
         }
-
-        /* Dropdown custom menu */
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 100%;
-            background-color: var(--container-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 10;
-            min-width: 180px;
-            overflow: hidden;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-item {
-            padding: 0.85rem 1.25rem;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--text-color);
-            background: none;
-            border: none;
-            width: 100%;
-            text-align: left;
-            transition: background-color 0.15s;
-        }
-
-        .dropdown-item:hover {
-            background-color: var(--active-bg);
-            color: var(--active-text);
-        }
-
-        /* Gemini Assistant Helper Styles */
-        .gemini-panel {
-            padding: 1rem;
-            background-color: var(--textarea-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            height: 100%;
-            box-sizing: border-box;
-        }
-        .gemini-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: 600;
-            font-size: 1.15rem;
-        }
-        .gemini-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        .btn-gemini {
-            background-color: var(--btn-primary);
-            color: white;
-            padding: 0.5rem 0.8rem;
-            font-size: 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-        .btn-gemini:hover {
-            background-color: var(--btn-hover);
-        }
-        .gemini-output {
-            font-size: 1.1rem;
-            white-space: pre-wrap;
-            background-color: var(--container-bg);
-            padding: 1rem;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            flex-grow: 1;
-            overflow-y: auto;
-            line-height: 1.5;
-        }
     </style>
 </head>
 <body>
@@ -473,10 +268,10 @@
             <h1>FlowSync</h1>
             <div class="button-group">
                 <button id="settings-btn" class="icon-btn" title="Settings">
-                    <img src="Images/Settings_Icon.png" alt="Settings" onerror="this.src='https://placehold.co/24x24/6c757d/ffffff?text=⚙️'">
+                    <img src="Images/Settings_icon.png" alt="Settings" onerror="this.src='https://placehold.co/24x24/6c757d/ffffff?text=⚙️'">
                 </button>
                 <button id="fullscreen-btn" class="icon-btn" title="Fullscreen">
-                    <img src="Images/Fullscreen_Icon.png" alt="Fullscreen" onerror="this.src='https://placehold.co/24x24/6c757d/ffffff?text=⛶'">
+                    <img src="Images/Fullscreen_icon.png" alt="Fullscreen" onerror="this.src='https://placehold.co/24x24/6c757d/ffffff?text=⛶'">
                 </button>
                 <button id="edit-btn" class="icon-btn" title="Edit / Reset">
                     <img src="Images/Edit_Icon.png" alt="Edit" onerror="this.src='https://placehold.co/24x24/6c757d/ffffff?text=✏️'">
@@ -486,40 +281,22 @@
 
         <!-- Text Input View -->
         <div id="input-view">
-            <p class="help-text">Paste your assignment steps or workflow notes below. Each line will become a separate step.</p>
-            <textarea id="text-input" placeholder="Paste your assignment steps here...&#10;Step 1: Research topic&#10;Step 2: Draft outline&#10;Step 3: Write introduction"></textarea>
+            <p class="help-text">Paste your assignment steps or workflow notes below. Sentences will be automatically separated.</p>
+            <textarea id="text-input" placeholder="Paste your assignment steps here...&#10;First step is to research topic. Second step is to draft outline. Third step is writing introduction."></textarea>
             <button id="start-btn" class="btn-primary">Start Workflow</button>
         </div>
 
         <!-- Practice Display View -->
         <div id="display-view">
-            <div class="practice-area">
-                <p class="help-text"><strong>Navigation:</strong> Space / ↓ / → (Next) | ↑ / ← (Previous)<span class="esc-hint"> | <strong>Exit:</strong> ESC</span></p>
-                
-                <div class="progress-container">
-                    <div id="progress-bar" class="progress-bar"></div>
-                </div>
-
-                <ul id="bullet-container">
-                    <!-- Steps injected here via JS -->
-                </ul>
+            <p class="help-text"><strong>Navigation:</strong> Space / ↓ / → (Next) | ↑ / ← (Previous) | <strong>Exit:</strong> ESC</p>
+            
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar"></div>
             </div>
 
-            <!-- Assistant Sidebar -->
-            <div class="assistant-sidebar" id="assistant-sidebar">
-                <div class="gemini-panel">
-                    <div class="gemini-header">
-                        <span>Assistant</span>
-                        <span style="font-size: 0.8rem; opacity: 0.7;">Helps with current step</span>
-                    </div>
-                    <div class="gemini-actions">
-                        <button class="btn-gemini" onclick="askGemini('explain')">💡 Explain Step</button>
-                        <button class="btn-gemini" onclick="askGemini('expand')">➕ Expand Details</button>
-                        <button class="btn-gemini" onclick="askGemini('quiz')">❓ Quiz Me</button>
-                    </div>
-                    <div id="gemini-output" class="gemini-output">Click an action above to get assistance on your highlighted step!</div>
-                </div>
-            </div>
+            <ul id="bullet-container">
+                <!-- Steps injected here via JS -->
+            </ul>
         </div>
         
         <!-- Modern Settings View -->
@@ -528,24 +305,13 @@
                 <div class="settings-header">Settings</div>
                 
                 <div class="settings-row">
-                    <span class="settings-label">Appearance (Dark Mode)</span>
+                    <span class="settings-label">Appearance</span>
                     <button id="theme-toggle-btn" class="btn-settings">Switch to Dark Mode</button>
                 </div>
 
                 <div class="settings-row">
-                    <span class="settings-label">Assistant</span>
-                    <button id="assistant-toggle-btn" class="btn-settings">Enabled</button>
-                </div>
-
-                <div class="settings-row" id="theme-dropdown-container">
-                    <span class="settings-label">Color Theme</span>
+                    <span class="settings-label">Theme</span>
                     <button id="theme-select-btn" class="btn-settings">Select a Theme ▼</button>
-                    <div id="dropdown-menu" class="dropdown-menu">
-                        <button class="dropdown-item" data-theme="default">Classic Light / Dark</button>
-                        <button class="dropdown-item" data-theme="ocean">Ocean Breeze</button>
-                        <button class="dropdown-item" data-theme="sunset">Sunset Glow</button>
-                        <button class="dropdown-item" data-theme="forest">Forest Canopy</button>
-                    </div>
                 </div>
             </div>
             
@@ -567,28 +333,30 @@
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
         const closeSettingsBtn = document.getElementById('close-settings-btn');
         
-        const assistantToggleBtn = document.getElementById('assistant-toggle-btn');
-        const assistantSidebar = document.getElementById('assistant-sidebar');
-        
         const bulletContainer = document.getElementById('bullet-container');
         const progressBar = document.getElementById('progress-bar');
         const mainContainer = document.getElementById('main-container');
 
-        // Theme dropdown elements
-        const themeSelectBtn = document.getElementById('theme-select-btn');
-        const dropdownMenu = document.getElementById('dropdown-menu');
-
         let bullets = [];
         let currentIndex = 0;
         let isPracticing = false;
-        let currentTheme = 'default';
-        let isAssistantEnabled = true;
 
-        // Settings Toggle Logic
+        // Settings Toggle Logic (Clicking settings while in settings returns home)
         settingsBtn.addEventListener('click', () => {
-            inputView.style.display = 'none';
-            displayView.style.display = 'none';
-            settingsView.style.display = 'flex';
+            if (settingsView.style.display === 'flex') {
+                // If already in settings, go back to previous view
+                settingsView.style.display = 'none';
+                if (isPracticing) {
+                    displayView.style.display = 'flex';
+                } else {
+                    inputView.style.display = 'flex';
+                }
+            } else {
+                // Open settings view
+                inputView.style.display = 'none';
+                displayView.style.display = 'none';
+                settingsView.style.display = 'flex';
+            }
         });
 
         closeSettingsBtn.addEventListener('click', () => {
@@ -610,73 +378,44 @@
             }
         });
 
-        // Dropdown Toggle Logic
-        themeSelectBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            dropdownMenu.classList.toggle('show');
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!themeSelectBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                dropdownMenu.classList.remove('show');
-            }
-        });
-
-        // Handle Theme Selection
-        document.querySelectorAll('.dropdown-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const selectedTheme = item.getAttribute('data-theme');
-                
-                // Remove existing theme classes
-                document.body.classList.remove('theme-ocean', 'theme-sunset', 'theme-forest');
-                
-                if (selectedTheme !== 'default') {
-                    document.body.classList.add(`theme-${selectedTheme}`);
-                }
-                
-                currentTheme = selectedTheme;
-                themeSelectBtn.textContent = item.textContent + ' ▼';
-                dropdownMenu.classList.remove('show');
-            });
-        });
-
-        // Assistant Toggle Logic
-        assistantToggleBtn.addEventListener('click', () => {
-            isAssistantEnabled = !isAssistantEnabled;
-            assistantToggleBtn.textContent = isAssistantEnabled ? 'Enabled' : 'Disabled';
-            if (isPracticing) {
-                assistantSidebar.style.display = isAssistantEnabled ? 'flex' : 'none';
-            }
-        });
-
-        // Start Workflow
+        // Start Workflow (With Automatic Period/Sentence Separation)
         startBtn.addEventListener('click', () => {
             const rawText = textInput.value;
             
-            bullets = rawText.split('\n')
-                .map(line => line.trim())
-                .filter(line => line.length > 0);
+            // Split first by newlines, then split each line by sentence-ending periods
+            let lines = rawText.split('\n');
+            let parsedBullets = [];
+
+            lines.forEach(line => {
+                // Split by periods followed by a space or end of string, keeping the text clean
+                let sentences = line.split(/(?<=\.)\s+/);
+                sentences.forEach(sentence => {
+                    let trimmed = sentence.trim();
+                    if (trimmed.length > 0) {
+                        parsedBullets.push(trimmed);
+                    }
+                });
+            });
+
+            bullets = parsedBullets;
 
             if (bullets.length === 0) {
+                alert('Please enter some text before starting.');
                 return;
             }
 
             currentIndex = 0;
             isPracticing = true;
-            document.body.classList.add('is-practicing');
 
             renderBullets();
             inputView.style.display = 'none';
             settingsView.style.display = 'none';
             displayView.style.display = 'flex';
-            assistantSidebar.style.display = isAssistantEnabled ? 'flex' : 'none';
         });
 
         // Edit / Reset Button
         editBtn.addEventListener('click', () => {
             isPracticing = false;
-            document.body.classList.remove('is-practicing');
             
             if (document.fullscreenElement) {
                 document.exitFullscreen().catch(() => {});
@@ -716,7 +455,7 @@
             updateHighlight();
         }
 
-        // Update Active Highlight & Progress Bar
+        // Update Green State & Progress
         function updateHighlight() {
             const allBullets = document.querySelectorAll('.bullet');
             allBullets.forEach(bullet => bullet.classList.remove('active'));
@@ -724,7 +463,7 @@
             const activeBullet = document.getElementById(`bullet-${currentIndex}`);
             if (activeBullet) {
                 activeBullet.classList.add('active');
-                activeBullet.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                activeBullet.scrollIntoView({ behavior: 'auto', block: 'center' });
             }
 
             const progressPercentage = ((currentIndex + 1) / bullets.length) * 100;
@@ -751,23 +490,6 @@
                 }
             }
         });
-
-        // Assistant Actions
-        async function askGemini(action) {
-            const outputBox = document.getElementById('gemini-output');
-            const currentStepText = bullets[currentIndex] || "No active step selected.";
-            
-            outputBox.textContent = "Thinking...";
-
-            setTimeout(() => {
-                if (action === 'explain') {
-                    outputBox.textContent = `💡 Explanation for: "${currentStepText}"\nThis step focuses on breaking down the core concepts clearly for efficient recall and mastery.`;
-                } else if (action === 'expand') {
-                    outputBox.textContent = `➕ Expanded details for: "${currentStepText}"\n• Key background context\n• Practical implementation notes\n• Common pitfalls to avoid`;
-                } else if (action === 'quiz') {
-                    outputBox.textContent = `❓ Quick Quiz Question:\nWhat is the primary objective of "${currentStepText}"? (Think about your answer and check your notes!)`;
-                }
-            }, 400);
-        }
     </script>
 </body>
+</html>
