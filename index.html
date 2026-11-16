@@ -589,6 +589,11 @@
                     </div>
                 </div>
 
+                <div class="settings-row" id="reader-writing-row" style="display: none;">
+                    <span class="settings-label">Writing Mode</span>
+                    <button id="writing-mode-btn" class="btn-settings">Off</button>
+                </div>
+
                 <div class="settings-row" id="theme-dropdown-container">
                     <span class="settings-label">Color Theme</span>
                     <button id="theme-select-btn" class="btn-settings">Select a Theme ▼</button>
@@ -671,23 +676,64 @@
         const readerSpeedSlider = document.getElementById('reader-speed-slider');
         const readerSpeedValue = document.getElementById('reader-speed-value');
 
+        const readerWritingRow = document.getElementById('reader-writing-row');
+        const writingModeBtn = document.getElementById('writing-mode-btn');
+
         let isReaderEnabled = false;
         let isReaderActive = false;
+        let isWritingMode = false;
         let readerRate = 1;
+        let readToken = 0;
+        let writingTimer = null;
+
+        // Writing mode tuning: slow speech rate, and a pause after each word
+        // (base pause + extra time per letter so longer words get longer to write)
+        const WRITING_RATE = 0.7;
+        const WRITING_PAUSE_BASE_MS = 500;
+        const WRITING_PAUSE_PER_CHAR_MS = 80;
+
+        function stopSpeech() {
+            readToken++;
+            clearTimeout(writingTimer);
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        }
+
+        function speakWordByWord(text) {
+            const words = text.split(/\s+/).filter(Boolean);
+            const token = readToken;
+            let i = 0;
+
+            const next = () => {
+                if (token !== readToken || i >= words.length) return;
+                const word = words[i++];
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.rate = WRITING_RATE;
+                utterance.onend = () => {
+                    writingTimer = setTimeout(next, WRITING_PAUSE_BASE_MS + word.length * WRITING_PAUSE_PER_CHAR_MS);
+                };
+                window.speechSynthesis.speak(utterance);
+            };
+            next();
+        }
 
         function speakCurrentStep() {
             if (!('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
+            stopSpeech();
             const text = bullets[currentIndex];
             if (!text) return;
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = readerRate;
-            window.speechSynthesis.speak(utterance);
+
+            if (isWritingMode) {
+                speakWordByWord(text);
+            } else {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = readerRate;
+                window.speechSynthesis.speak(utterance);
+            }
         }
 
         function stopReader() {
             isReaderActive = false;
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            stopSpeech();
         }
 
         function updateReaderButton() {
@@ -714,6 +760,7 @@
             isReaderEnabled = !isReaderEnabled;
             readerToggleBtn.textContent = isReaderEnabled ? 'Enabled' : 'Disabled';
             readerSpeedRow.style.display = isReaderEnabled ? 'flex' : 'none';
+            readerWritingRow.style.display = isReaderEnabled ? 'flex' : 'none';
             if (!isReaderEnabled) stopReader();
             updateReaderButton();
         });
@@ -724,6 +771,13 @@
             readerSpeedValue.textContent = `${readerRate}x`;
         });
         readerSpeedSlider.addEventListener('change', () => {
+            if (isReaderActive) speakCurrentStep();
+        });
+
+        // Settings: writing mode (word by word, slowly)
+        writingModeBtn.addEventListener('click', () => {
+            isWritingMode = !isWritingMode;
+            writingModeBtn.textContent = isWritingMode ? 'On' : 'Off';
             if (isReaderActive) speakCurrentStep();
         });
 
