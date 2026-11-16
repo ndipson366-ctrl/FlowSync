@@ -686,9 +686,13 @@
         let readToken = 0;
         let writingTimer = null;
 
-        // Writing mode tuning: slow speech rate, and a pause after each word
-        // (base pause + extra time per letter so longer words get longer to write)
-        const WRITING_RATE = 0.7;
+        // Writing mode tuning: speech slows down as words get longer
+        // (short words speak at WRITING_RATE; each letter past 4 slows it by
+        // WRITING_SLOWDOWN_PER_CHAR, down to WRITING_MIN_RATE),
+        // plus a pause after each word that also grows with word length
+        const WRITING_RATE = 0.8;
+        const WRITING_MIN_RATE = 0.4;
+        const WRITING_SLOWDOWN_PER_CHAR = 0.05;
         const WRITING_PAUSE_BASE_MS = 500;
         const WRITING_PAUSE_PER_CHAR_MS = 80;
 
@@ -707,7 +711,11 @@
                 if (token !== readToken || i >= words.length) return;
                 const word = words[i++];
                 const utterance = new SpeechSynthesisUtterance(word);
-                utterance.rate = WRITING_RATE;
+                const letters = word.replace(/[^A-Za-z0-9]/g, '').length;
+                utterance.rate = Math.max(
+                    WRITING_MIN_RATE,
+                    WRITING_RATE - Math.max(0, letters - 4) * WRITING_SLOWDOWN_PER_CHAR
+                );
                 utterance.onend = () => {
                     writingTimer = setTimeout(next, WRITING_PAUSE_BASE_MS + word.length * WRITING_PAUSE_PER_CHAR_MS);
                 };
