@@ -34,7 +34,7 @@
             --btn-secondary-hover: #444444;
             --border-color: #333333;
             --textarea-bg: #222222;
-            --settings-btn-bg: #2b7cff; 
+            --settings-btn-bg: #2b7cff;
             --settings-btn-hover: #1e5cbf;
         }
 
@@ -137,28 +137,28 @@
         body.is-practicing .container:fullscreen .top-header h1 {
             display: none;
         }
-        
+
         body.is-practicing .container:fullscreen .top-header {
             justify-content: flex-end;
             border-bottom: none;
         }
-        
+
         body.is-practicing .container:fullscreen .assistant-sidebar {
             display: none !important;
         }
-        
+
         .esc-hint {
             display: none;
         }
-        
+
         body.is-practicing .container:fullscreen .esc-hint {
             display: inline;
         }
-        
+
         body.is-practicing .container:fullscreen .practice-area {
             overflow: hidden;
         }
-        
+
         body.is-practicing .container:fullscreen #bullet-container {
             overflow-y: auto;
             padding-bottom: 50vh;
@@ -246,7 +246,7 @@
             flex-direction: column;
             height: 100%;
         }
-        
+
         #settings-view {
             display: none;
             flex-direction: column;
@@ -414,7 +414,7 @@
             color: var(--active-text);
         }
 
-        /* Gemini Assistant Helper Styles */
+        /* Assistant Helper Styles */
         .gemini-panel {
             padding: 1rem;
             background-color: var(--textarea-bg);
@@ -467,7 +467,7 @@
 <body>
 
     <div class="container" id="main-container">
-        
+
         <!-- Persistent Top Header -->
         <div class="top-header">
             <h1>FlowSync</h1>
@@ -486,7 +486,7 @@
 
         <!-- Text Input View -->
         <div id="input-view">
-            <p class="help-text">Paste your assignment steps or workflow notes below. Each line will become a separate step.</p>
+            <p class="help-text">Paste your assignment steps or workflow notes below. Each line and each sentence (ending in a period) will become a separate step.</p>
             <textarea id="text-input" placeholder="Paste your assignment steps here...&#10;Step 1: Research topic&#10;Step 2: Draft outline&#10;Step 3: Write introduction"></textarea>
             <button id="start-btn" class="btn-primary">Start Workflow</button>
         </div>
@@ -495,7 +495,7 @@
         <div id="display-view">
             <div class="practice-area">
                 <p class="help-text"><strong>Navigation:</strong> Space / ↓ / → (Next) | ↑ / ← (Previous)<span class="esc-hint"> | <strong>Exit:</strong> ESC</span></p>
-                
+
                 <div class="progress-container">
                     <div id="progress-bar" class="progress-bar"></div>
                 </div>
@@ -521,12 +521,12 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Modern Settings View -->
         <div id="settings-view">
             <div>
                 <div class="settings-header">Settings</div>
-                
+
                 <div class="settings-row">
                     <span class="settings-label">Appearance (Dark Mode)</span>
                     <button id="theme-toggle-btn" class="btn-settings">Switch to Dark Mode</button>
@@ -548,7 +548,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <button id="close-settings-btn" class="btn-primary" style="background-color: var(--btn-secondary); margin-top: auto;">Back</button>
         </div>
 
@@ -558,7 +558,7 @@
         const inputView = document.getElementById('input-view');
         const displayView = document.getElementById('display-view');
         const settingsView = document.getElementById('settings-view');
-        
+
         const textInput = document.getElementById('text-input');
         const startBtn = document.getElementById('start-btn');
         const editBtn = document.getElementById('edit-btn');
@@ -566,10 +566,10 @@
         const settingsBtn = document.getElementById('settings-btn');
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
         const closeSettingsBtn = document.getElementById('close-settings-btn');
-        
+
         const assistantToggleBtn = document.getElementById('assistant-toggle-btn');
         const assistantSidebar = document.getElementById('assistant-sidebar');
-        
+
         const bulletContainer = document.getElementById('bullet-container');
         const progressBar = document.getElementById('progress-bar');
         const mainContainer = document.getElementById('main-container');
@@ -585,20 +585,32 @@
         let isAssistantEnabled = true;
 
         // Settings Toggle Logic
-        settingsBtn.addEventListener('click', () => {
+        function openSettings() {
             inputView.style.display = 'none';
             displayView.style.display = 'none';
             settingsView.style.display = 'flex';
-        });
+        }
 
-        closeSettingsBtn.addEventListener('click', () => {
+        function closeSettings() {
             settingsView.style.display = 'none';
+            dropdownMenu.classList.remove('show');
             if (isPracticing) {
                 displayView.style.display = 'flex';
             } else {
                 inputView.style.display = 'flex';
             }
+        }
+
+        // Clicking the settings icon while in settings returns to the previous page
+        settingsBtn.addEventListener('click', () => {
+            if (settingsView.style.display === 'flex') {
+                closeSettings();
+            } else {
+                openSettings();
+            }
         });
+
+        closeSettingsBtn.addEventListener('click', closeSettings);
 
         // Dark Mode Toggle Logic
         themeToggleBtn.addEventListener('click', () => {
@@ -627,14 +639,14 @@
         document.querySelectorAll('.dropdown-item').forEach(item => {
             item.addEventListener('click', () => {
                 const selectedTheme = item.getAttribute('data-theme');
-                
+
                 // Remove existing theme classes
                 document.body.classList.remove('theme-ocean', 'theme-sunset', 'theme-forest');
-                
+
                 if (selectedTheme !== 'default') {
                     document.body.classList.add(`theme-${selectedTheme}`);
                 }
-                
+
                 currentTheme = selectedTheme;
                 themeSelectBtn.textContent = item.textContent + ' ▼';
                 dropdownMenu.classList.remove('show');
@@ -650,13 +662,19 @@
             }
         });
 
+        // Split on new lines AND on periods that end a sentence.
+        // A period only splits when followed by whitespace, so "3.5" and "file.docx" stay intact.
+        function parseSteps(rawText) {
+            return rawText
+                .split('\n')
+                .flatMap(line => line.replace(/\.\s+/g, '.\n').split('\n'))
+                .map(s => s.trim())
+                .filter(s => s.length > 0);
+        }
+
         // Start Workflow
         startBtn.addEventListener('click', () => {
-            const rawText = textInput.value;
-            
-            bullets = rawText.split('\n')
-                .map(line => line.trim())
-                .filter(line => line.length > 0);
+            bullets = parseSteps(textInput.value);
 
             if (bullets.length === 0) {
                 return;
@@ -677,11 +695,11 @@
         editBtn.addEventListener('click', () => {
             isPracticing = false;
             document.body.classList.remove('is-practicing');
-            
+
             if (document.fullscreenElement) {
                 document.exitFullscreen().catch(() => {});
             }
-            
+
             displayView.style.display = 'none';
             settingsView.style.display = 'none';
             inputView.style.display = 'flex';
@@ -703,7 +721,7 @@
 
         // Render List
         function renderBullets() {
-            bulletContainer.innerHTML = ''; 
+            bulletContainer.innerHTML = '';
 
             bullets.forEach((text, index) => {
                 const li = document.createElement('li');
@@ -742,7 +760,7 @@
                     updateHighlight();
                 }
             }
-            
+
             if (e.code === 'ArrowUp' || e.code === 'ArrowLeft') {
                 e.preventDefault();
                 if (currentIndex > 0) {
@@ -756,7 +774,7 @@
         async function askGemini(action) {
             const outputBox = document.getElementById('gemini-output');
             const currentStepText = bullets[currentIndex] || "No active step selected.";
-            
+
             outputBox.textContent = "Thinking...";
 
             setTimeout(() => {
