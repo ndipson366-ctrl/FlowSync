@@ -663,11 +663,12 @@
         });
 
         // Split on new lines AND on periods that end a sentence.
-        // A period only splits when followed by whitespace, so "3.5" and "file.docx" stay intact.
+        // Punctuation (. ? !) only splits when followed by whitespace, so "3.5" and "file.docx" stay intact.
+        // Closing quotes/brackets right after the punctuation (e.g. sky.” or one?”) stay with their sentence.
         function parseSteps(rawText) {
             return rawText
                 .split('\n')
-                .flatMap(line => line.replace(/\.\s+/g, '.\n').split('\n'))
+                .flatMap(line => line.replace(/([.!?]+["'\u201D\u2019)\]]*)\s+/g, '$1\n').split('\n'))
                 .map(s => s.trim())
                 .filter(s => s.length > 0);
         }
